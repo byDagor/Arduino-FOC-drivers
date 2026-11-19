@@ -92,7 +92,9 @@ if (pin == DRV8305_FaultPin::Fault) {
 
 Call `getFaultPin()` before `getStatus()`: it samples nFAULT for about 160 us, which is longer than one warning period. The driver reports, what to do about a warning or fault is up to your code.
 
-Two exceptions in the chip: the temperature flags (`isTemperatureFlag105C()` etc.) only set a real time status bit and do not touch nFAULT, and with the VDS overcurrent mode set to report only, overcurrent events are warnings instead of faults.
+One exception in the chip: the temperature flags (`isTemperatureFlag105C()` etc.) only set a real time status bit and do not touch nFAULT.
+
+Keep the VDS overcurrent monitor in its default mode, `DRV8305_VDSMode::VDSMode_LatchedShutdown`, so an overcurrent switches the gates off as a fault. Choose the threshold with `setVDSLevel()` from the on-resistance of your MOSFETs: the chip trips at the threshold divided by RDS(on), and RDS(on) grows when the MOSFET is hot. Only in the report only mode are overcurrent events warnings, and the chip then takes no action.
 
 ## Settings
 

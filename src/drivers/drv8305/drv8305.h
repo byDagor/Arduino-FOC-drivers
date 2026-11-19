@@ -287,6 +287,8 @@ class DRV8305Driver {
 		decl_getset(CurrentSenseGain_C, DRV8305_CSAGain);
 		void setCurrentSenseGain(DRV8305_CSAGain gain);  // all three channels
 		decl_getset(CurrentSenseBlanking, DRV8305_CSABlank);
+		/** DC calibration mode: the amplifier inputs are shorted inside the chip, so the outputs show their offset. Applies to all three channels. */
+		void setCurrentSenseCalibration(bool enable);
 
 	protected:
 		uint16_t readSPI(uint8_t addr);

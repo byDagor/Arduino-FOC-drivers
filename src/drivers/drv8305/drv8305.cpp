@@ -228,3 +228,13 @@ void DRV8305Driver::setCurrentSenseGain(DRV8305_CSAGain gain) {
 	data.GAIN_CS3 = static_cast<uint16_t>(gain);
 	writeSPI(Shunt_Amplifier_ADDR, data.reg);
 }
+
+
+void DRV8305Driver::setCurrentSenseCalibration(bool enable) {
+	Shunt_Amplifier data;
+	data.reg = readSPI(Shunt_Amplifier_ADDR);
+	data.DC_CAL_CH1 = enable;
+	data.DC_CAL_CH2 = enable;
+	data.DC_CAL_CH3 = enable;
+	writeSPI(Shunt_Amplifier_ADDR, data.reg);
+}
